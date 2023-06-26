@@ -29,13 +29,13 @@ public class MainLayout extends AppLayout {
     }
 
     private void addHeaderContent() {
-        DrawerToggle toggle = new DrawerToggle();
-        toggle.getElement().setAttribute("aria-label", "Menu toggle");
+//        DrawerToggle toggle = new DrawerToggle();
+//        toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
         viewTitle = new H2();
         viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
 
-        addToNavbar(true, toggle, viewTitle);
+        addToNavbar(true, viewTitle);
     }
 
     private void addDrawerContent() {
@@ -43,9 +43,9 @@ public class MainLayout extends AppLayout {
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
-        Scroller scroller = new Scroller(createNavigation());
+//        Scroller scroller = new Scroller(createNavigation());
 
-        addToDrawer(header, scroller, createFooter());
+        addToDrawer(header, createFooter());
     }
 
     private SideNav createNavigation() {
