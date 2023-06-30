@@ -14,3 +14,80 @@ vaadin-scroller[slot="drawer"] {
 [slot="drawer"]:is(header, footer):is(:empty) {
   display: none;
 }
+
+.instance-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100%);
+}
+
+.instance-wrapper {
+	background-color: var(--lumo-contrast-5pct);
+	padding: 3rem 0;
+    width: 100%;
+    margin: 0 auto;
+	border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.content-wrapper {
+    padding: 1rem;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.btn-add {
+    width: 1rem;
+    height: 1rem;
+    padding: 2rem;
+    border-radius: 100%;
+    position: absolute;
+    right: 1rem;
+    bottom: 4rem;
+}
+
+.is-centered {
+    margin: 0 auto;
+}
+
+.is-circle {
+    border-radius: 100%;
+    margin: 0 auto;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 4rem;
+    right: 1rem;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.green-threat {
+    border: 0.3rem solid var(--lumo-success-text-color);
+    color: var(--lumo-success-text-color);
+}
+
+@media screen and (min-width: 600px) {
+    .instance-wrapper {
+        width: auto;
+        margin: 0;
+    }
+
+    .btn-add {
+        position: relative;
+        right: auto;
+        bottom: auto;
+    }
+
+    .instance-group {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}

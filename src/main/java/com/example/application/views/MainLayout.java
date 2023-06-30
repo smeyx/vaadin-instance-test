@@ -12,6 +12,8 @@ import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.vaadin.lineawesome.LineAwesomeIcon;
 
@@ -24,7 +26,7 @@ public class MainLayout extends AppLayout {
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
-        addDrawerContent();
+//        addDrawerContent();
         addHeaderContent();
     }
 
@@ -33,7 +35,7 @@ public class MainLayout extends AppLayout {
 //        toggle.getElement().setAttribute("aria-label", "Menu toggle");
 
         viewTitle = new H2();
-        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
+        viewTitle.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.MEDIUM);
 
         addToNavbar(true, viewTitle);
     }
@@ -43,9 +45,9 @@ public class MainLayout extends AppLayout {
         appName.addClassNames(LumoUtility.FontSize.LARGE, LumoUtility.Margin.NONE);
         Header header = new Header(appName);
 
-//        Scroller scroller = new Scroller(createNavigation());
+        Scroller scroller = new Scroller(createNavigation());
 
-        addToDrawer(header, createFooter());
+        addToDrawer(header, createFooter(), scroller);
     }
 
     private SideNav createNavigation() {

@@ -12,11 +12,11 @@ import com.vaadin.flow.router.RouteAlias;
 
 @PageTitle("Hello World")
 @Route(value = "hello", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
 public class HelloWorldView extends HorizontalLayout {
 
     private TextField name;
     private Button sayHello;
+    private TextField city;
 
     public HelloWorldView() {
         name = new TextField("Your name");
@@ -26,10 +26,12 @@ public class HelloWorldView extends HorizontalLayout {
         });
         sayHello.addClickShortcut(Key.ENTER);
 
+        city = new TextField("Your city");
+
         setMargin(true);
         setVerticalComponentAlignment(Alignment.END, name, sayHello);
-
-        add(name, sayHello);
+        
+        add(name, sayHello, city);
     }
 
 }
