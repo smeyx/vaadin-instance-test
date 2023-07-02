@@ -53,22 +53,10 @@ public class InstancesView extends VerticalLayout {
 		add(addButton, mobileAddButton, instanceGroup, addInstanceDialog);
 	}
 
-	private void fetchInstanceInformation() {
-		Mono<Instance> instance = instanceService.fetchInstance("http://127.0.0.1:3000/api/v1/instance");
-		instance.subscribe(
-				value -> {
-					UI ui = getUI().orElseThrow();
-					ui.access(() -> Notification.show(value.getTitle()));
-				},
-				System.err::println,
-				() -> System.out.println("Mono done.")
-		);
-	}
-
 	private void createInstanceList() {
 		for(int i = 1; i <=5; i++) {
 			InstanceElement instance = new InstanceElement();
-			instance.setName("Instance no. 1");
+			instance.setName("IRMA Instance no. " + i);
 			instance.setThreatLevel(200);
 
 			instanceGroup.add(instance);
