@@ -1,6 +1,7 @@
 package com.example.application;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -15,7 +16,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@Theme(value = "instancemanagement", variant = Lumo.DARK)
+@Push
+@Theme(value = "instancemanagement")
 public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {

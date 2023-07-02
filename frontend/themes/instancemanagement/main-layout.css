@@ -21,7 +21,7 @@ vaadin-scroller[slot="drawer"] {
 }
 
 .instance-wrapper {
-	background-color: var(--lumo-contrast-5pct);
+	background-color: var(--lumo-contrast-10pct);
 	padding: 3rem 0;
     width: 100%;
     margin: 0 auto;
@@ -49,8 +49,18 @@ vaadin-scroller[slot="drawer"] {
     bottom: 4rem;
 }
 
+.btn-add-wide {
+	display: none;
+	padding: 2rem;
+}
+
 .is-centered {
     margin: 0 auto;
+}
+
+.threatlevel {
+	height: 5rem;
+	width: 5rem;
 }
 
 .is-circle {
@@ -82,10 +92,12 @@ vaadin-scroller[slot="drawer"] {
     }
 
     .btn-add {
-        position: relative;
-        right: auto;
-        bottom: auto;
+		display: none;
     }
+    
+    .btn-add-wide {
+		display: block;
+	}
 
     .instance-group {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

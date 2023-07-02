@@ -30,7 +30,7 @@ public class InstanceElement extends Composite<Div> {
 
 	private Component createHeader() {
 		Div circle = new Div();
-		circle.addClassNames("is-circle", "green-threat", "center-content");
+		circle.addClassNames("is-circle", "green-threat", "center-content", "threatlevel");
 		circle.add(threatLevel);
 
 		return circle;

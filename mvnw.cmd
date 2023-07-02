@@ -20,7 +20,8 @@
 @REM ----------------------------------------------------------------------------
 @REM Maven Start Up Batch script
 @REM
-@REM Required ENV vars:
+@REM Required ENV varsieve the CLI args that will
+# work with both Windows and non-Windo:
 @REM JAVA_HOME - location of a JDK home dir
 @REM
 @REM Optional ENV vars
