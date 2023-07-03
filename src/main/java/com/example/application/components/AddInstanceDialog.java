@@ -1,5 +1,7 @@
 package com.example.application.components;
 
+import org.jsoup.helper.W3CDom;
+
 import com.example.application.api.client.RestClient;
 import com.example.application.api.dto.instance.Instance;
 import com.vaadin.flow.component.Key;
@@ -26,8 +28,10 @@ public class AddInstanceDialog extends Dialog {
     NumberField port = new NumberField("Port");
     ProgressBar progressBar = new ProgressBar();
     Span progressBarLabel = new Span();
+    saveInstanceCallback<Instance> callback;
 
-    public AddInstanceDialog() {
+    public AddInstanceDialog(saveInstanceCallback<Instance> callback) {
+    	this.callback = callback;
         createLayout();
         createFooter();
     }
@@ -40,7 +44,7 @@ public class AddInstanceDialog extends Dialog {
 
         Button saveButton = new Button(
                 "Save",
-                e -> Notification.show("Saved")
+                e -> saveInstance(callback)
         );
        saveButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
        saveButton.addClickShortcut(Key.ENTER);
@@ -58,27 +62,11 @@ public class AddInstanceDialog extends Dialog {
 
         ipAddress.setPlaceholder("The IP of this IRMA instance.");
         ipAddress.addValueChangeListener(e -> {
-        	progressBar.setIndeterminate(true);
-        	progressBar.setVisible(true);
-        	progressBarLabel.getElement().getThemeList().clear();
-
-        	service.fetchInstance("http://" + e.getValue() + "/api/v1/instance")
-        	.subscribe(
-        			instance -> {
-        				if (!instance.getTitle().isEmpty()) {
-        					changeUi(() -> {
-        						progressBarLabel.setText("Valid instance");
-        						progressBarLabel.getElement().getThemeList().add("badge success");
-        					});
-        				}
-        			},
-        			error -> {
-        				changeUi(() -> {
-        					progressBarLabel.setText("Instance not found.");
-        					progressBarLabel.getElement().getThemeList().add("badge error");
-        				});
-        			}
-        			);
+        	pingInstance();
+        });
+        
+        port.addValueChangeListener(e -> {
+        	pingInstance();
         });
         
         port.setPlaceholder("The port of this IRMA instance.");
@@ -87,6 +75,49 @@ public class AddInstanceDialog extends Dialog {
         
         layout.add(title, ipAddress, port, progressBar, progressBarLabel);
         add(layout);
+    }
+    
+    private void resetProgressBar() {
+    	progressBar.setIndeterminate(true);
+    	progressBar.setVisible(true);
+    	progressBarLabel.getElement().getThemeList().clear();
+    }
+    
+    private void pingInstance() {
+    	if(ipAddress.isEmpty() || port.isEmpty()) return;
+    	resetProgressBar();
+
+    	service.fetchInstance("http://" + ipAddress.getValue() + ":" + port.getValue().intValue() + "/api/v1/instance")
+    	.subscribe(
+    			instance -> {
+    				if (!instance.getTitle().isEmpty()) {
+    					changeUi(() -> {
+    						progressBar.setVisible(false);
+    						progressBarLabel.setText("Valid instance");
+    						progressBarLabel.getElement().getThemeList().add("badge success");
+    					});
+    				}
+    			},
+    			error -> {
+    				changeUi(() -> {
+    					progressBar.setVisible(false);
+    					progressBarLabel.setText("Instance not found.");
+    					progressBarLabel.getElement().getThemeList().add("badge error");
+    				});
+    			}
+    	);
+    }
+    
+    public static interface saveInstanceCallback<T> {
+    	void save(T result);
+    }
+    
+    private void saveInstance(saveInstanceCallback<Instance> callback) {
+    	Instance instance = new Instance();
+    	instance.setTitle(title.getValue());
+    	instance.setWebURL(ipAddress.getValue());
+    	instance.setPort(port.getValue().intValue());
+    	callback.save(instance);
     }
     
     private static interface changeUiCallback {

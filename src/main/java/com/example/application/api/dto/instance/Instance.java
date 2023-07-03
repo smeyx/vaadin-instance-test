@@ -1,10 +1,16 @@
 package com.example.application.api.dto.instance;
 
+import java.beans.JavaBean;
+
+@JavaBean
 public class Instance {
     private String title;
     private String version;
     private String webURL;
     private Integer port;
+    
+    public Instance() {
+	}
 
     public String getTitle() {
         return title;
